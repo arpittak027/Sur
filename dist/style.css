@@ -1,0 +1,1078 @@
+/* Full-bleed canvas — Figma frame 1600×900 proportions, fluid */
+
+:root {
+  --area-w: 492px;
+  --area-h: 468px;
+  /* Default China roof from Figma 605:6500 crop → full PNG placement */
+  --roof-x: -180px;
+  --roof-y: -508px;
+  --roof-w: 841px;
+  --roof-h: 841px;
+  /* Figma shadow 605:6464 — x:0 y:0 w:996 h:468 (no blur pad) */
+  --shadow-w: 996px;
+  --shadow-h: 468px;
+  --ink: #58423c;
+  --ink-strong: #3a2d2a;
+  --ink-muted: rgba(88, 66, 60, 0.6);
+  --ink-soft: rgba(88, 66, 60, 0.76);
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --display: "PP Eiko", "Times New Roman", serif;
+  --pad-x: clamp(24px, 7.125vw, 114px);
+  --pad-bottom: clamp(48px, 8.9vh, 80px);
+  --ease-scene: cubic-bezier(0.42, 0, 1, 1); /* ease-in */
+  --ease-char: cubic-bezier(0.42, 0, 1, 1);
+  --scene-ms: 780ms;
+  --copy-ms: 480ms;
+  --layer-gap: 0.1s;
+  --char-stagger: 0.02s;
+}
+
+@font-face {
+  font-family: "PP Eiko";
+  src: url("./fonts/PPEiko-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #e8dfd0 url("./bg.png") center / cover no-repeat;
+  color: var(--ink);
+  font-family: var(--mono);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* ─── Top bar ─── */
+.topbar {
+  position: absolute;
+  z-index: 20;
+  /* Figma Items y:33 / Configure y:32 on 1600×900 */
+  top: 32px;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  width: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.topbar > * {
+  pointer-events: auto;
+}
+
+.brand-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.brand {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.09em;
+  line-height: 1;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu a {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 21px;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.menu a.is-active {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.dot {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--ink);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.chat-btn {
+  position: relative;
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  width: 107px;
+  height: 36px;
+  padding: 0;
+  /* Wavy dark SVG from Figma 615:6816 — shape only; label is HTML (PP Eiko) */
+  background: transparent url("./configure-btn.svg") center / 100% 100% no-repeat;
+  color: #fff;
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+  white-space: nowrap;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.chat-btn__label {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: 36px;
+  pointer-events: none;
+}
+
+.chat-btn:hover {
+  filter: brightness(1.06);
+}
+
+.chat-btn[aria-expanded="true"] {
+  filter: brightness(1.1);
+}
+
+/* ─── Country side buttons — Figma 609:6644 / 608:6641 (y:279 on 1600×900) ─── */
+.country-btn {
+  position: absolute;
+  z-index: 15;
+  /* Figma 609:6644 / 608:6641 — y:279 on 1600×900 */
+  top: calc(279 / 900 * 100%);
+  width: 80px;
+  height: 80px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  appearance: none;
+  background-color: transparent;
+  /* Wavy ink frame (Figma 615:6824 / 615:6827), not a hard box */
+  background-image: url("./selector-frame.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 84px 84px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 0;
+  cursor: pointer;
+  color: var(--ink);
+  overflow: visible;
+  box-sizing: border-box;
+  transition:
+    transform 220ms var(--ease-scene),
+    opacity 220ms ease,
+    filter 180ms ease;
+}
+
+.country-btn:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.country-btn:hover {
+  transform: translateY(-2px);
+}
+
+.country-btn:active {
+  transform: translateY(0);
+}
+
+.country-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+}
+
+.country-btn--left {
+  left: var(--pad-x);
+}
+
+.country-btn--right {
+  right: var(--pad-x);
+}
+
+.country-btn__icon {
+  position: relative;
+  display: block;
+  width: 67px;
+  height: 21px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.country-btn__icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Japan — Figma 616:6102: 76×22 */
+.country-btn[data-country="japan"] .country-btn__icon {
+  width: 76px;
+  height: 22px;
+}
+
+/* Vietnam — Figma 617:6130: 67×21 */
+.country-btn[data-country="vietnam"] .country-btn__icon {
+  width: 67px;
+  height: 21px;
+}
+
+/* China — Figma 617:6112: 76×22 */
+.country-btn[data-country="china"] .country-btn__icon {
+  width: 76px;
+  height: 22px;
+}
+
+/* Kazakhstan — Figma 617:6117: 64×30 */
+.country-btn[data-country="kazakhstan"] .country-btn__icon {
+  width: 64px;
+  height: 30px;
+}
+.country-btn[data-country="kazakhstan"] .country-btn__label {
+  font-size: 12px;
+  letter-spacing: -0.06em;
+}
+
+/* Russia — Figma 617:6122: 70×33 */
+.country-btn[data-country="russia"] .country-btn__icon {
+  width: 70px;
+  height: 33px;
+}
+
+.country-btn__label {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ─── Strings area — Figma 605:6463: x:554 y:357 w:492 h:468 ─── */
+.area {
+  position: absolute;
+  left: 50%;
+  top: calc(357 / 900 * 100%);
+  width: var(--area-w);
+  height: var(--area-h);
+  transform: translateX(-50%);
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Figma 605:6500 China — frame -149,-280 779×288; full PNG fill ≈ -180,-508 841² */
+.area[data-country="china"] {
+  --roof-x: -180px;
+  --roof-y: -508px;
+  --roof-w: 841px;
+  --roof-h: 841px;
+}
+
+.area[data-country="japan"] {
+  --roof-x: -71px;
+  --roof-y: -367px;
+  --roof-w: 634px;
+  --roof-h: 634px;
+}
+
+.area[data-country="vietnam"] {
+  --roof-x: -92px;
+  --roof-y: -399px;
+  --roof-w: 676px;
+  --roof-h: 676px;
+}
+
+/* Figma 612:6710 — Kazakhstan yurt (+20px) */
+.area[data-country="kazakhstan"] {
+  --roof-x: -14px;
+  --roof-y: -206px;
+  --roof-w: 519px;
+  --roof-h: 271px;
+}
+
+/* Figma 612:6754 — Russia terem */
+.area[data-country="russia"] {
+  --roof-x: -36px;
+  --roof-y: -247px;
+  --roof-w: 564px;
+  --roof-h: 284px;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+.scene.is-animating {
+  pointer-events: none;
+}
+
+.shadow {
+  /* Figma progressive cast under roof — stacked blur layers approximate soft falloff */
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--shadow-w);
+  height: var(--shadow-h);
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+  opacity: 0.92;
+}
+
+/* Progressive blur: sharp under the roof → softer toward the far end.
+   Native CSS can't do Figma progressive blur in one filter, so we stack
+   increasingly blurred copies masked along the cast direction. */
+.shadow__layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+
+.shadow__layer--sharp {
+  filter: blur(0);
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    #000 0%,
+    #000 10%,
+    transparent 32%
+  );
+  mask-image: linear-gradient(160deg, #000 0%, #000 10%, transparent 32%);
+}
+
+.shadow__layer--soft {
+  filter: blur(8px);
+  opacity: 0.95;
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    transparent 0%,
+    #000 14%,
+    #000 48%,
+    transparent 72%
+  );
+  mask-image: linear-gradient(
+    160deg,
+    transparent 0%,
+    #000 14%,
+    #000 48%,
+    transparent 72%
+  );
+}
+
+.shadow__layer--softer {
+  filter: blur(18px);
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    transparent 12%,
+    #000 36%,
+    #000 70%,
+    transparent 95%
+  );
+  mask-image: linear-gradient(
+    160deg,
+    transparent 12%,
+    #000 36%,
+    #000 70%,
+    transparent 95%
+  );
+}
+
+.shadow__layer--softest {
+  filter: blur(32px);
+  opacity: 0.75;
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    transparent 30%,
+    #000 58%,
+    #000 100%
+  );
+  mask-image: linear-gradient(160deg, transparent 30%, #000 58%, #000 100%);
+}
+
+.strings {
+  --pad: 420px;
+  position: absolute;
+  left: calc(var(--pad) * -1);
+  top: calc(var(--pad) * -1);
+  width: calc(100% + var(--pad) * 2);
+  height: calc(100% + var(--pad) * 2);
+  z-index: 2;
+  overflow: visible;
+  touch-action: none;
+  pointer-events: none;
+}
+
+.strings canvas {
+  display: block;
+  /* Must fill .strings — inline style from sizeCanvas would otherwise keep
+     desktop px and misalign cloth under a scaled mobile area. */
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: auto;
+}
+
+.roof {
+  position: absolute;
+  left: var(--roof-x);
+  top: var(--roof-y);
+  width: var(--roof-w);
+  height: var(--roof-h);
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.roof img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.area[data-country="kazakhstan"] .roof img,
+.area[data-country="russia"] .roof img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+/* ─── Bottom copy — Figma 605:6488 heading + 605:6466 aside ─── */
+.bottom-copy {
+  position: absolute;
+  z-index: 10;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  /* heading y:602 h:218 → bottom 80 on 900 */
+  bottom: var(--pad-bottom);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  pointer-events: none;
+}
+
+.heading {
+  /* Figma 605:6488 — base w:410; widen so long titles (China etc.) aren’t cramped */
+  width: calc(50% - (var(--area-w) / 2) - var(--pad-x) + 100px);
+  max-width: min(520px, 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 32px;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.eyebrow {
+  display: block;
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.14em;
+  line-height: 21px;
+  color: var(--ink-soft);
+  white-space: normal;
+}
+
+.eyebrow strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.heading h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(36px, 3.5vw, 56px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: var(--ink-strong);
+}
+
+.aside {
+  /* Figma 605:6466 — x:1255 y:747 w:232 h:63 */
+  width: 232px;
+  max-width: min(232px, 32vw);
+  margin: 0;
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 21px;
+  color: var(--ink);
+  flex-shrink: 0;
+  align-self: flex-end;
+  /* aside bottom sits ~10px above heading bottom on the artboard */
+  margin-bottom: 10px;
+}
+
+.heading h1 .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.heading h1 .char {
+  display: inline-block;
+  will-change: opacity, transform, filter;
+  transition:
+    opacity 280ms var(--ease-scene),
+    transform 280ms var(--ease-scene),
+    filter 280ms var(--ease-scene);
+}
+
+.heading h1 .char--space {
+  width: 0.28em;
+}
+
+.bottom-copy .eyebrow,
+.bottom-copy .aside {
+  transition:
+    opacity var(--copy-ms) var(--ease-scene),
+    transform var(--copy-ms) var(--ease-scene);
+}
+
+.bottom-copy.is-leaving .eyebrow,
+.bottom-copy.is-leaving .aside {
+  opacity: 0;
+  transform: translateY(10px);
+  transition-delay: 0s;
+}
+
+.bottom-copy.is-leaving .heading h1 .char {
+  opacity: 0;
+  transform: translateY(0.35em);
+  filter: blur(4px);
+  transition:
+    opacity 280ms var(--ease-scene),
+    transform 280ms var(--ease-scene),
+    filter 280ms var(--ease-scene);
+  transition-delay: 0s;
+}
+
+/* Enter: layers start hidden */
+.bottom-copy.is-entering:not(.is-in) .eyebrow,
+.bottom-copy.is-entering:not(.is-in) .aside {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.bottom-copy.is-entering:not(.is-in) .heading h1 .char {
+  opacity: 0;
+  transform: translateY(0.55em);
+  filter: blur(6px);
+}
+
+/* Enter: subtitle (layer 0) → title chars (layer +0.1s) → aside (+0.2s) */
+.bottom-copy.is-entering.is-in .eyebrow {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.bottom-copy.is-entering.is-in .heading h1 .char {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition:
+    opacity var(--copy-ms) var(--ease-char),
+    transform var(--copy-ms) var(--ease-char),
+    filter var(--copy-ms) var(--ease-char);
+  transition-delay: calc(var(--layer-gap) + (var(--i) * var(--char-stagger)));
+}
+
+.bottom-copy.is-entering.is-in .aside {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--layer-gap) * 2);
+}
+
+/* ─── Destinations carousel (Figma 605:6580) ─── */
+.stage[data-view="destinations"] .area,
+.stage[data-view="destinations"] .country-btn,
+.stage[data-view="destinations"] .bottom-copy {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.stage[data-view="home"] .destinations,
+.stage:not([data-view="destinations"]) .destinations {
+  display: none;
+}
+
+.destinations {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.destinations[hidden] {
+  display: none !important;
+}
+
+.carousel {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  outline: none;
+}
+
+.carousel.is-dragging {
+  cursor: grabbing;
+}
+
+.carousel__viewport {
+  position: absolute;
+  left: 50%;
+  /* Align with home area vertical center (Figma center area top 357 / 900) */
+  top: calc(357 / 900 * 100%);
+  width: 100%;
+  height: var(--area-h);
+  transform: translateX(-50%);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.carousel__track {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 0;
+  height: 100%;
+}
+
+.carousel__item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--area-w);
+  height: var(--area-h);
+  margin-left: calc(var(--area-w) / -2);
+  transform-origin: 50% 50%;
+  will-change: transform;
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.carousel.is-dragging .carousel__item {
+  cursor: grabbing;
+}
+
+.carousel__item.is-center {
+  cursor: pointer;
+}
+
+.carousel__item .carousel__area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Reuse home roof/shadow vars via data-country on the item */
+.carousel__item[data-country="china"] {
+  --roof-x: -180px;
+  --roof-y: -508px;
+  --roof-w: 841px;
+  --roof-h: 841px;
+}
+
+.carousel__item[data-country="japan"] {
+  --roof-x: -71px;
+  --roof-y: -367px;
+  --roof-w: 634px;
+  --roof-h: 634px;
+}
+
+.carousel__item[data-country="vietnam"] {
+  --roof-x: -92px;
+  --roof-y: -399px;
+  --roof-w: 676px;
+  --roof-h: 676px;
+}
+
+.carousel__item[data-country="kazakhstan"] {
+  --roof-x: -14px;
+  --roof-y: -206px;
+  --roof-w: 519px;
+  --roof-h: 271px;
+}
+
+.carousel__item[data-country="russia"] {
+  --roof-x: -36px;
+  --roof-y: -247px;
+  --roof-w: 564px;
+  --roof-h: 284px;
+}
+
+.carousel__item .shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--shadow-w);
+  height: var(--shadow-h);
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.carousel__item .strings {
+  z-index: 2;
+  pointer-events: none;
+}
+
+.carousel__item .strings canvas {
+  pointer-events: none;
+}
+
+.carousel__item .roof {
+  position: absolute;
+  left: var(--roof-x);
+  top: var(--roof-y);
+  width: var(--roof-w);
+  height: var(--roof-h);
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.carousel__item .roof img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.carousel__item[data-country="kazakhstan"] .roof img,
+.carousel__item[data-country="russia"] .roof img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+/* Tweakpane above everything */
+.tp-dfwv {
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+}
+
+/*
+ * Mobile:
+ * Vietnam / Japan left + right; area ~58vw; sits above eyebrow/title.
+ * Keep chrome/selectors/type near desktop scale — don’t micro-size.
+ */
+@media (max-width: 960px) {
+  :root {
+    --pad-x: 24px;
+    --pad-bottom: 36px;
+    --area-w: 58vw;
+    --area-h: calc(var(--area-w) * 468 / 492);
+    --strings-pad: calc(420 / 492 * var(--area-w));
+    /* Room for eyebrow + multi-line title, then a clear gap to the scene */
+    /* Fallback until JS pins area 64px above eyebrow (layoutAreaAboveCopy) */
+    --heading-reserve: 142px;
+    --copy-gap: 64px;
+  }
+
+  .topbar {
+    top: 20px;
+  }
+
+  .brand-nav {
+    gap: 20px;
+  }
+
+  .brand {
+    font-size: 14px;
+  }
+
+  .menu {
+    display: flex;
+    gap: 10px;
+  }
+
+  .menu a {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .dot {
+    width: 2px;
+    height: 2px;
+  }
+
+  .menu a[data-view="knowledge"] {
+    display: none;
+  }
+
+  .menu .dot:has(+ a[data-view="knowledge"]) {
+    display: none;
+  }
+
+  .chat-btn {
+    width: 96px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .chat-btn__label {
+    line-height: 32px;
+  }
+
+  /* Country selectors — left / right, near-desktop size */
+  .country-btn {
+    top: 88px;
+    bottom: auto;
+    width: 72px;
+    height: 72px;
+    padding: 4px;
+    background-size: 76px 76px;
+    z-index: 40;
+  }
+
+  .country-btn--left {
+    left: var(--pad-x);
+    right: auto;
+  }
+
+  .country-btn--right {
+    left: auto;
+    right: var(--pad-x);
+  }
+
+  .country-btn__icon {
+    width: 56px;
+    height: 18px;
+  }
+
+  .country-btn[data-country="japan"] .country-btn__icon,
+  .country-btn[data-country="china"] .country-btn__icon {
+    width: 64px;
+    height: 18px;
+  }
+
+  .country-btn[data-country="kazakhstan"] .country-btn__icon {
+    width: 54px;
+    height: 26px;
+  }
+
+  .country-btn[data-country="russia"] .country-btn__icon {
+    width: 58px;
+    height: 28px;
+  }
+
+  .country-btn__label {
+    font-size: 14px;
+  }
+
+  .country-btn[data-country="kazakhstan"] .country-btn__label {
+    font-size: 11px;
+  }
+
+  /* Area above eyebrow/title */
+  .area {
+    top: auto;
+    bottom: calc(var(--pad-bottom) + var(--heading-reserve) + var(--copy-gap));
+    width: var(--area-w);
+    height: var(--area-h);
+    transform: translateX(-50%);
+    z-index: 1;
+    overflow: visible;
+  }
+
+  .area[data-country="china"] {
+    --roof-x: calc(-180 / 492 * var(--area-w));
+    --roof-y: calc(-508 / 492 * var(--area-w));
+    --roof-w: calc(841 / 492 * var(--area-w));
+    --roof-h: calc(841 / 492 * var(--area-w));
+  }
+
+  .area[data-country="japan"] {
+    --roof-x: calc(-71 / 492 * var(--area-w));
+    --roof-y: calc(-367 / 492 * var(--area-w));
+    --roof-w: calc(634 / 492 * var(--area-w));
+    --roof-h: calc(634 / 492 * var(--area-w));
+  }
+
+  .area[data-country="vietnam"] {
+    --roof-x: calc(-92 / 492 * var(--area-w));
+    --roof-y: calc(-399 / 492 * var(--area-w));
+    --roof-w: calc(676 / 492 * var(--area-w));
+    --roof-h: calc(676 / 492 * var(--area-w));
+  }
+
+  .area[data-country="kazakhstan"] {
+    --roof-x: calc(-14 / 492 * var(--area-w));
+    --roof-y: calc(-206 / 492 * var(--area-w));
+    --roof-w: calc(519 / 492 * var(--area-w));
+    --roof-h: calc(271 / 492 * var(--area-w));
+  }
+
+  .area[data-country="russia"] {
+    --roof-x: calc(-36 / 492 * var(--area-w));
+    --roof-y: calc(-247 / 492 * var(--area-w));
+    --roof-w: calc(564 / 492 * var(--area-w));
+    --roof-h: calc(284 / 492 * var(--area-w));
+  }
+
+  .shadow {
+    --shadow-w: calc(996 / 492 * var(--area-w));
+    --shadow-h: var(--area-h);
+    width: var(--shadow-w);
+    height: var(--shadow-h);
+  }
+
+  .strings {
+    --pad: var(--strings-pad);
+    left: calc(var(--pad) * -1);
+    top: calc(var(--pad) * -1);
+    width: calc(100% + var(--pad) * 2);
+    height: calc(100% + var(--pad) * 2);
+  }
+
+  .bottom-copy {
+    top: auto;
+    bottom: var(--pad-bottom);
+    left: var(--pad-x);
+    right: var(--pad-x);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 14px;
+    z-index: 20;
+  }
+
+  .heading {
+    width: 100%;
+    max-width: 100%;
+    gap: 14px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.1em;
+  }
+
+  .heading h1 {
+    font-size: clamp(28px, 7vw, 36px);
+  }
+
+  .aside {
+    display: none;
+  }
+
+  .carousel__viewport {
+    top: auto;
+    bottom: calc(var(--pad-bottom) + var(--heading-reserve) + var(--copy-gap));
+    width: var(--area-w);
+    height: var(--area-h);
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 960px) and (max-height: 640px) {
+  :root {
+    --area-w: 50vw;
+    --area-h: calc(var(--area-w) * 468 / 492);
+    --strings-pad: calc(420 / 492 * var(--area-w));
+    --heading-reserve: 120px;
+    --copy-gap: 20px;
+    --pad-bottom: 24px;
+  }
+
+  .country-btn {
+    top: 72px;
+    width: 64px;
+    height: 64px;
+    background-size: 68px 68px;
+  }
+
+  .heading h1 {
+    font-size: clamp(24px, 6.5vw, 30px);
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --pad-x: 16px;
+    --area-w: 62vw;
+    --area-h: calc(var(--area-w) * 468 / 492);
+    --strings-pad: calc(420 / 492 * var(--area-w));
+  }
+
+  .menu {
+    display: none;
+  }
+}
+
+.chat-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.menu a[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.45;
+}

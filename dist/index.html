@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budarina — China</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="stage" id="stage" data-view="home">
+      <header class="topbar">
+        <div class="brand-nav">
+          <a
+            class="brand"
+            href="https://www.instagram.com/marina_uiux/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Budarina</a
+          >
+          <nav class="menu" aria-label="Primary">
+            <a class="is-active" href="#home" data-view="home">Home</a>
+            <span class="dot" aria-hidden="true"></span>
+            <a href="#destinations" data-view="destinations">Destinations</a>
+            <span class="dot" aria-hidden="true"></span>
+            <a
+              href="https://budarina.design/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-view="knowledge"
+              >Knowledge</a
+            >
+          </nav>
+        </div>
+        <button type="button" class="chat-btn" id="chatBtn" aria-expanded="false">
+          <span class="chat-btn__label">Configure</span>
+        </button>
+      </header>
+
+      <button
+        type="button"
+        class="country-btn country-btn--left"
+        id="btnLeft"
+        data-side="left"
+        data-country="vietnam"
+        aria-label="Vietnam"
+      >
+        <span class="country-btn__icon" aria-hidden="true">
+          <img id="btnLeftIcon" src="./selector-vietnam.png" alt="" />
+        </span>
+        <span class="country-btn__label" id="btnLeftLabel">Vietnam</span>
+      </button>
+
+      <button
+        type="button"
+        class="country-btn country-btn--right"
+        id="btnRight"
+        data-side="right"
+        data-country="japan"
+        aria-label="Japan"
+      >
+        <span class="country-btn__icon" aria-hidden="true">
+          <img id="btnRightIcon" src="./selector-japan.png" alt="" />
+        </span>
+        <span class="country-btn__label" id="btnRightLabel">Japan</span>
+      </button>
+
+      <div class="area" id="area" data-country="china">
+        <div class="scene" id="scene">
+          <div class="shadow" aria-hidden="true">
+            <img class="shadow__layer shadow__layer--sharp" src="./shadow.svg" alt="" />
+            <img class="shadow__layer shadow__layer--soft" src="./shadow.svg" alt="" />
+            <img class="shadow__layer shadow__layer--softer" src="./shadow.svg" alt="" />
+            <img class="shadow__layer shadow__layer--softest" src="./shadow.svg" alt="" />
+          </div>
+          <div id="container" class="strings"></div>
+          <div class="roof" aria-hidden="true">
+            <img id="roofImg" src="./roof-china.png" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-copy" id="bottomCopy">
+        <section class="heading" aria-label="Intro">
+          <p class="eyebrow">
+            <span id="eyebrowText"
+              ><strong>缘分</strong> (Yuánfèn) A destined meeting</span
+            >
+          </p>
+          <h1 id="pageTitle">
+            China — golden courtyards, silk-road myths, roofs that refuse gravity
+          </h1>
+        </section>
+
+        <p class="aside" id="pageAside">
+          Wander forbidden gardens, painted eaves, and stories older than the
+          maps that tried to hold them.
+        </p>
+      </div>
+
+      <section
+        class="destinations"
+        id="destinationsView"
+        hidden
+        aria-label="Destinations"
+      >
+        <div
+          class="carousel"
+          id="carousel"
+          role="listbox"
+          aria-label="Country roofs"
+          tabindex="0"
+        >
+          <div class="carousel__viewport" id="carouselViewport">
+            <div class="carousel__track" id="carouselTrack"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
