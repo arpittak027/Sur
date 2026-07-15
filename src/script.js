@@ -1331,8 +1331,10 @@ function initCarousel() {
       if (moved) {
         const now = performance.now();
         const dt = Math.max(1, now - lastT);
-        const vx = (e.clientX - lastX) / dt;
-        velocity = velocity * 0.7 + vx * 0.3;
+        const vx = (e.clientX - lastX) / dt; // px / ms
+        velocity = velocity * 0.65 + vx * 0.35;
+        // Cap so a noisy last frame can't invent a double-skip fling
+        velocity = Math.max(-2.2, Math.min(2.2, velocity));
         lastX = e.clientX;
         lastT = now;
         index = startIndex - dx / carouselGapPx();
@@ -1353,8 +1355,6 @@ function initCarousel() {
     } catch (_) {}
     pointerId = null;
 
-    let target = index - velocity * 180;
-    target = Math.round(target);
     if (!moved) {
       const hit = e.target?.closest?.(".carousel__item");
       if (hit) {
@@ -1370,10 +1370,33 @@ function initCarousel() {
           return;
         }
       }
-      target = Math.round(index);
+      animateTo(nearestIndex(index));
+      moved = false;
+      return;
     }
+
+    const gap = carouselGapPx();
+    // Convert fling from px/ms → index units (was wrongly applied as raw index before)
+    const flickIndex = Math.max(
+      -0.55,
+      Math.min(0.55, (-velocity * 140) / gap)
+    );
+    const releaseNearest = Math.round(index);
+    let target = Math.round(index + flickIndex);
+
+    // Never skip a country: settle at most one step from where the finger released
+    target = Math.max(releaseNearest - 1, Math.min(releaseNearest + 1, target));
+
+    // Tiny nudge without a real flick → stay on the slide you started from
+    const dragged = index - startIndex;
+    if (Math.abs(dragged) < 0.2 && Math.abs(flickIndex) < 0.22) {
+      target = Math.round(startIndex);
+    }
+
+    target = ((target % n) + n) % n;
     animateTo(target);
     moved = false;
+    velocity = 0;
   }
 
   root.addEventListener("pointerdown", onPointerDown);
@@ -1392,7 +1415,8 @@ function initCarousel() {
       layout();
       clearTimeout(root._wheelSnap);
       root._wheelSnap = setTimeout(() => {
-        animateTo(Math.round(index));
+        // Wheel: nearest only — no fling skip
+        animateTo(nearestIndex(index));
       }, 80);
     },
     { passive: false }
