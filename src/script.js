@@ -9,8 +9,6 @@ import {
 } from "./countries.js";
 import { chimes } from "./chimes.js";
 
-console.clear();
-
 // Figma area 605:6463
 const AREA_W = 492;
 const AREA_H = 468;
@@ -269,12 +267,14 @@ const CONFIG = {
   chimeVolume: 0.28
 };
 
-const pane = new Pane({ title: "Strings" });
+const pane = new Pane({ title: "Configure" });
 pane.hidden = true;
+pane.element.classList.add("budarina-pane");
 
-const fCountry = pane.addFolder({ title: "Country", expanded: true });
+const fCountry = pane.addFolder({ title: "Destination", expanded: true });
 countryBinding = fCountry
   .addBinding(CONFIG, "country", {
+    label: "Country",
     options: Object.fromEntries(
       Object.values(COUNTRIES).map((c) => [c.name, c.id])
     )
@@ -283,57 +283,92 @@ countryBinding = fCountry
     setCountry(ev.value);
   });
 
-const f1 = pane.addFolder({ title: "Config", expanded: true });
-const f2 = pane.addFolder({ title: "Simulation", expanded: true });
+const fCloth = pane.addFolder({ title: "Cloth", expanded: true });
+const fFeel = pane.addFolder({ title: "Motion & sound", expanded: true });
 
-f1.addBinding(CONFIG, "width", { step: 1, min: 100, max: 800 });
-f1.addBinding(CONFIG, "height", {
+fCloth.addBinding(CONFIG, "width", {
+  step: 1,
+  min: 100,
+  max: 800,
+  label: "Width"
+});
+fCloth.addBinding(CONFIG, "height", {
   step: 1,
   min: 80,
   max: 700,
-  label: "Cloth height"
+  label: "Height"
 });
-gridWBinding = f1.addBinding(CONFIG, "gridW", { step: 1, min: 2, max: 200 });
-gridHBinding = f1.addBinding(CONFIG, "gridH", { step: 1, min: 2, max: 100 });
-f2.addBinding(CONFIG, "gravity", { step: 0.05, min: 0, max: 2 });
-f2.addBinding(CONFIG, "damping", { step: 0.001, min: 0.5, max: 1.02 });
-f2.addBinding(CONFIG, "iterationsPerFrame", { step: 1, min: 1, max: 20 });
-f2.addBinding(CONFIG, "stretchFactor", {
+gridWBinding = fCloth.addBinding(CONFIG, "gridW", {
+  step: 1,
+  min: 2,
+  max: 200,
+  label: "Columns"
+});
+gridHBinding = fCloth.addBinding(CONFIG, "gridH", {
+  step: 1,
+  min: 2,
+  max: 100,
+  label: "Rows"
+});
+fFeel.addBinding(CONFIG, "gravity", {
+  step: 0.05,
+  min: 0,
+  max: 2,
+  label: "Gravity"
+});
+fFeel.addBinding(CONFIG, "damping", {
+  step: 0.001,
+  min: 0.5,
+  max: 1.02,
+  label: "Damping"
+});
+fFeel.addBinding(CONFIG, "iterationsPerFrame", {
+  step: 1,
+  min: 1,
+  max: 20,
+  label: "Precision"
+});
+fFeel.addBinding(CONFIG, "stretchFactor", {
   step: 0.01,
   min: 1.0,
   max: 2.0,
-  label: "Max Stretch"
+  label: "Stretch"
 });
-f2.addBinding(CONFIG, "compressFactor", {
+fFeel.addBinding(CONFIG, "compressFactor", {
   step: 0.01,
   min: 0.01,
   max: 1.0,
-  label: "Min Compress"
+  label: "Compress"
 });
-f2.addBinding(CONFIG, "mouseSize", {
+fFeel.addBinding(CONFIG, "mouseSize", {
   step: 1,
   min: 100,
   max: 10000,
-  label: "Mouse size"
+  label: "Touch radius"
 });
-f2.addBinding(CONFIG, "mouseStrength", {
+fFeel.addBinding(CONFIG, "mouseStrength", {
   step: 1,
   min: 1,
   max: 10,
-  label: "Mouse strength"
+  label: "Touch force"
 });
-f2.addBinding(CONFIG, "chimes", { label: "Door chimes" }).on("change", (ev) => {
-  chimes.enabled = ev.value;
-});
-f2.addBinding(CONFIG, "chimeVolume", {
-  min: 0,
-  max: 1,
-  step: 0.01,
-  label: "Chime volume"
-}).on("change", (ev) => {
-  chimes.setVolume(ev.value);
-});
-f2.addBinding(CONFIG, "contain", { label: "Contain" });
+fFeel.addBinding(CONFIG, "chimes", { label: "Door chimes" }).on(
+  "change",
+  (ev) => {
+    chimes.enabled = ev.value;
+  }
+);
+fFeel
+  .addBinding(CONFIG, "chimeVolume", {
+    min: 0,
+    max: 1,
+    step: 0.01,
+    label: "Chime volume"
+  })
+  .on("change", (ev) => {
+    chimes.setVolume(ev.value);
+  });
+fFeel.addBinding(CONFIG, "contain", { label: "Keep in bounds" });
 
 function rerender() {
   if (input) input.unbind();
@@ -341,13 +376,13 @@ function rerender() {
   main();
 }
 
-f1.addButton({ title: "Render" }).on("click", rerender);
+fCloth.addButton({ title: "Rebuild cloth" }).on("click", rerender);
 
-f1.on("change", (ev) => {
+fCloth.on("change", (ev) => {
   if (ev.last) rerender();
 });
 
-f2.on("change", () => {
+fFeel.on("change", () => {
   if (!c) return;
   c.dispatchEvent(
     new CustomEvent("update", {

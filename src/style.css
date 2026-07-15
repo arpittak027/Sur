@@ -811,10 +811,76 @@ body {
   object-position: center bottom;
 }
 
-/* Tweakpane above everything */
-.tp-dfwv {
+/* Configure panel — Budarina parchment / ink (not default Tweakpane chrome) */
+.tp-dfwv,
+.budarina-pane {
   z-index: 10000 !important;
   pointer-events: auto !important;
+  top: 72px !important;
+  right: max(16px, var(--pad-x)) !important;
+  width: min(300px, calc(100vw - 32px)) !important;
+  font-family: var(--mono) !important;
+  letter-spacing: -0.04em;
+
+  --tp-base-background-color: rgba(244, 234, 216, 0.96);
+  --tp-base-shadow-color: rgba(58, 45, 42, 0.2);
+  --tp-button-background-color: #58423c;
+  --tp-button-background-color-hover: #3a2d2a;
+  --tp-button-background-color-active: #2c221f;
+  --tp-button-background-color-focus: #3a2d2a;
+  --tp-button-foreground-color: #f6ecda;
+  --tp-container-background-color: rgba(88, 66, 60, 0.07);
+  --tp-container-background-color-hover: rgba(88, 66, 60, 0.11);
+  --tp-container-background-color-focus: rgba(88, 66, 60, 0.13);
+  --tp-container-background-color-active: rgba(88, 66, 60, 0.15);
+  --tp-container-foreground-color: #3a2d2a;
+  --tp-groove-foreground-color: rgba(88, 66, 60, 0.16);
+  --tp-input-background-color: rgba(255, 249, 238, 0.92);
+  --tp-input-background-color-hover: #fffaf0;
+  --tp-input-background-color-focus: #fffdf7;
+  --tp-input-background-color-active: #fffdf7;
+  --tp-input-foreground-color: #3a2d2a;
+  --tp-label-foreground-color: rgba(88, 66, 60, 0.78);
+  --tp-monitor-background-color: rgba(88, 66, 60, 0.06);
+  --tp-monitor-foreground-color: #58423c;
+}
+
+.tp-dfwv .tp-rotv_t,
+.budarina-pane .tp-rotv_t {
+  font-family: var(--display) !important;
+  font-weight: 500;
+  font-size: 15px !important;
+  letter-spacing: -0.05em;
+  color: var(--ink-strong) !important;
+}
+
+.tp-dfwv .tp-fldv_t,
+.budarina-pane .tp-fldv_t {
+  font-family: var(--mono) !important;
+  font-size: 11px !important;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+.tp-dfwv .tp-lblv_l,
+.budarina-pane .tp-lblv_l {
+  font-size: 11px !important;
+}
+
+.tp-dfwv .tp-btnv_b,
+.budarina-pane .tp-btnv_b {
+  font-family: var(--display) !important;
+  font-size: 13px !important;
+  letter-spacing: -0.04em;
+  border-radius: 0 !important;
+}
+
+@media (max-width: 960px) {
+  .tp-dfwv,
+  .budarina-pane {
+    top: 56px !important;
+    width: min(280px, calc(100vw - 24px)) !important;
+  }
 }
 
 /*
