@@ -32,4 +32,7 @@ Then navigate to `http://127.0.0.1:8765/` in your browser.
 
 **Author:** [arpittak027](https://github.com/arpittak027)
 
+**Original Project:** This is a customized version of the original beautiful simulation by **Marina Budarina**.
+- Original Live Demo: [https://marinabudarina.github.io/chimes/#home](https://marinabudarina.github.io/chimes/#home)
+
 Thank you for exploring this digital experience!
