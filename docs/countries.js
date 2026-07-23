@@ -10,9 +10,6 @@ export const COUNTRIES = {
     buttonIcon: "./selector-vietnam.png",
     writing: "vertical",
     gridW: 62,
-    eyebrowNative: "Duyên",
-    eyebrowRoman: "",
-    eyebrow: "A chance encounter",
     title: "Vietnam — moss on temple roofs, rivers full of lantern light",
     aside:
       "Drift through Hanoi alleys, Hue courtyards, and eaves that curve like boats toward the water.",
@@ -43,9 +40,6 @@ export const COUNTRIES = {
     roof: "./roof-china.png",
     buttonIcon: "./selector-china.png",
     writing: "vertical",
-    eyebrowNative: "缘分",
-    eyebrowRoman: "Yuánfèn",
-    eyebrow: "A destined meeting",
     title: "China — golden courtyards, silk-road myths, roofs that refuse gravity",
     aside:
       "Wander forbidden gardens, painted eaves, and stories older than the maps that tried to hold them.",
@@ -76,9 +70,6 @@ export const COUNTRIES = {
     roof: "./roof-japan.png",
     buttonIcon: "./selector-japan.png",
     writing: "vertical",
-    eyebrowNative: "一期一会",
-    eyebrowRoman: "Ichigo ichie",
-    eyebrow: "One time, one meeting",
     title: "Japan — red eaves in the mist, stone paths, and patience as architecture",
     aside:
       "Pass under vermilion gates, cedar shade, and rooms where silence is part of the design.",
@@ -112,9 +103,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 42,
     font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
-    eyebrowNative: "Жол",
-    eyebrowRoman: "Jol",
-    eyebrow: "The open road",
     title: "Kazakhstan — steppe wind, shanyrak light, and a home that moves with you",
     aside:
       "Cross grass without edge, warm felt interiors, and patterns that outrun every border.",
@@ -148,9 +136,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 40,
     font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
-    eyebrowNative: "Судьба",
-    eyebrowRoman: "Sud'ba",
-    eyebrow: "A fated meeting",
     title: "Russia — painted terems, lace gables, and snow that keeps the stories",
     aside:
       "Step under carved eaves, bright courtyards, and rooms that still smell like pine and tea.",
@@ -184,9 +169,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 42,
     font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
-    eyebrowNative: "Hasard",
-    eyebrowRoman: "",
-    eyebrow: "A fortunate chance",
     title: "France — slate mansards, iron cresting, and courtyards that teach lingering",
     aside:
       "Wander zinc roofs, café shadows, and streets where beauty is treated as a daily habit.",
@@ -220,10 +202,7 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 40,
     font: '"JetBrains Mono", "Noto Sans Devanagari", "Kohinoor Devanagari", "Noto Serif Devanagari", "PT Serif", serif',
-    eyebrowNative: "संयोग",
-    eyebrowRoman: "Sanyog",
-    eyebrow: "A destined meeting",
-    title: "India — carved domes, temple bells, and courtyards heavy with marigold light",
+    title: "India carved domes, temple bells, and courtyards heavy with marigold light",
     aside:
       "Pass under onion finials, sandstone shade, and stories that refuse a single ending.",
     cloth: [
@@ -256,9 +235,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 42,
     font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
-    eyebrowNative: "Serendipity",
-    eyebrowRoman: "",
-    eyebrow: "A happy accident",
     title: "UK — thatched eaves, stone chimneys, and lanes that keep their secrets soft",
     aside:
       "Duck under reed roofs, garden gates, and weather that makes tea feel like a ceremony.",
@@ -292,9 +268,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 40,
     font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
-    eyebrowNative: "Vandring",
-    eyebrowRoman: "",
-    eyebrow: "A long walk",
     title: "Norway — grass roofs, fjord light, and cabins that borrow the hillside",
     aside:
       "Cross sod eaves, cold clear air, and silence wide enough to hear your own thinking.",
@@ -328,9 +301,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 42,
     font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
-    eyebrowNative: "Destino",
-    eyebrowRoman: "",
-    eyebrow: "A fated meeting",
     title: "Italy — terracotta domes, marble lanterns, and piazzas that slow the clock",
     aside:
       "Stand under ribbed cupolas, warm stone, and evenings that arrive as if rehearsed for centuries.",
@@ -364,9 +334,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 42,
     font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
-    eyebrowNative: "Happenstance",
-    eyebrowRoman: "",
-    eyebrow: "A lucky turn",
     title: "USA — shingled gables, brick chimneys, and porches that keep the afternoon",
     aside:
       "Pass under dormer light, warm clapboard, and streets that still believe in an open door.",
@@ -400,9 +367,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 42,
     font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
-    eyebrowNative: "Saudade",
-    eyebrowRoman: "",
-    eyebrow: "A longing that travels",
     title: "Brazil — terracotta tiles, white acroteria, and cupolas catching the heat",
     aside:
       "Wander clay roofs, shaded courtyards, and evenings that arrive already dancing.",
@@ -436,9 +400,6 @@ export const COUNTRIES = {
     writing: "horizontal",
     gridW: 40,
     font: '"JetBrains Mono", "Noto Naskh Arabic", "Noto Sans Arabic", "Geeza Pro", "PT Serif", serif',
-    eyebrowNative: "تقدیر",
-    eyebrowRoman: "Taqdir",
-    eyebrow: "A written fate",
     title: "Iran — windcatchers, courtyard shade, and roofs that breathe the desert",
     aside:
       "Stand under badgir towers, cool terrace light, and patterns that turn heat into quiet.",
@@ -462,6 +423,90 @@ export const COUNTRIES = {
       "با دلِ تمام راه برو — جایی که نیمه‌راه رفته‌ای هنوز زمین دیگران است",
       "سفر نگاه را عوض می‌کند — و فقط با نگاهی عوض‌شده ارزش دارد که بازگردی"
     ].join("　")
+  },
+
+  // Spain
+  spain: {
+    id: "spain",
+    name: "Spain",
+    roof: "./roof-spain.png",
+    buttonIcon: "./selector-spain.png",
+    writing: "horizontal",
+    gridW: 40,
+    font: '"Inter", sans-serif',
+    title: "Spain — terracotta tiles, warm afternoon sun, and melodies floating through the plaza",
+    aside:
+      "Wander through narrow cobblestone alleys where shadows stretch long and every balcony holds a story.",
+    cloth: [
+      "No hay mal que por bien no venga — every cloud has a silver lining when you look closely",
+      "El que lee mucho y anda mucho, ve mucho y sabe mucho — travel and reading open the eyes of the soul",
+      "Poco a poco se anda lejos — step by step one goes a long way",
+      "A buen entendedor, pocas palabras bastan — to a good listener, few words are needed",
+      "Camarón que se duerme se lo lleva la corriente — stay awake to the world or it will pass you by",
+      "Más vale pájaro en mano que ciento volando — cherish what is present and real",
+      "El saber no ocupa lugar — knowledge takes up no space but expands the horizon",
+      "Quien mucho abarca, poco aprieta — focus on the step you are taking now",
+      "Donde hay gana, hay maña — where there is a will, there is a way to cross the mountains",
+      "El hábito no hace al monje — true character is found beneath the surface"
+    ].join("　")
+  },
+  // South Korea
+  southkorea: {
+    id: "southkorea",
+    name: "South Korea",
+    roof: "./roof-southkorea.png",
+    buttonIcon: "./selector-southkorea.png",
+    writing: "horizontal",
+    gridW: 40,
+    font: '"Noto Sans KR", sans-serif',
+    title: "South Korea — gracefully curved eaves, quiet temple courtyards, and the sound of wind chimes",
+    aside:
+      "Step softly over ancient stones, where history breathes quietly beneath the modern sky.",
+    cloth: [
+      "시작이 반이다 — starting is half the task, the hardest step is the first",
+      "가는 말이 고와야 오는 말이 곱다 — beautiful words spoken return as beautiful echoes",
+      "고생 끝에 낙이 온다 — at the end of hardship comes happiness",
+      "개천에서 용 난다 — a dragon rises from a small stream, greatness can come from anywhere",
+      "천 리 길도 한 걸음부터 — a journey of a thousand miles begins with a single step",
+      "원숭이도 나무에서 떨어진다 — even monkeys fall from trees, perfection is an illusion",
+      "우물 안 개구리 — a frog in a well knows nothing of the great ocean",
+      "아는 길도 물어가라 — even on a familiar path, it is wise to ask the way",
+      "등잔 밑이 어둡다 — it is dark directly beneath the lamp, sometimes the truth is closest to us",
+      "비 온 뒤에 땅이 굳어진다 — the ground hardens after the rain, struggles make us stronger"
+    ].join("　")
+  },
+  // 11 — Australia (modern)
+  australia: {
+    id: "australia",
+    name: "Australia",
+    roof: "./roof-australia.png",
+    buttonIcon: "./selector-australia.png",
+    writing: "horizontal",
+    gridW: 42,
+    font: '"JetBrains Mono", "PT Serif", "Georgia", "Times New Roman", serif',
+    title: "Australia — modern sails, vast horizons, and architecture that catches the sun",
+    aside:
+      "Pass under sweeping curves, bright open air, and spaces that invite the ocean inside.",
+    cloth: [
+      "The journey is the destination — arrival is only a porch light left on for whoever comes next",
+      "Not all those who wander are lost — some are simply rewriting the map with their feet",
+      "A ship in harbour is safe but that is not what ships are built for — comfort is a berth not a life",
+      "The world is a book and those who do not travel read only one page — and often skim that too",
+      "Adventure is worthwhile in itself — even when the ending refuses to promise anything",
+      "Leave the shore to find a new ocean — familiar coasts are sometimes cages wearing kindly names",
+      "Travel makes you humble — not by shrinking you but by returning you to true scale",
+      "Better to travel well than to arrive — a beautiful arrival is born only of a beautiful way",
+      "Go once a year somewhere you have never been — unfamiliarity restores the senses more than novelty",
+      "The best moment is stepping into the unknown — briefly you are not defined by old stories",
+      "Home is where they wait for you — walls can be built anywhere waiting builds meaning",
+      "The horizon is not a boundary — it is merely a suggestion of what lies beyond the glare",
+      "Front porch wisdom travels farther than freeways — the slow talk still knows how to teach",
+      "Courage is a cup of coffee before the storm — ordinary bravery often looks like staying kind",
+      "Mist hides the hill then returns it — faith sees form before clarity arrives",
+      "Do not measure a place by the weather — measure it by how you listen when the weather speaks",
+      "The road teaches what the room cannot — motion is a kind of honesty",
+      "Travel changes the eye — and only a changed eye is fit to come home again"
+    ].join("　")
   }
 };
 
@@ -479,7 +524,10 @@ export const COUNTRY_ORDER = [
   "italy",
   "usa",
   "brazil",
-  "iran"
+  "iran",
+  "australia",
+  "spain",
+  "southkorea"
 ];
 
 export const DEFAULT_COUNTRY = "china";

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Budarina — 01 Figma</title>
+    <title>Sur — 01 Figma</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,7 +16,7 @@
     <div class="stage" id="stage" data-view="home" data-stage="figma">
       <header class="topbar">
         <div class="brand-nav">
-          <a class="brand" href="./01-figma.html">Budarina</a>
+          <a class="brand" href="./01-figma.html">Sur</a>
           <nav class="menu" aria-label="Primary">
             <a class="is-active" href="./01-figma.html">Home</a>
             <span class="dot" aria-hidden="true"></span>
@@ -27,6 +27,18 @@
           <span class="chat-btn__label">Play</span>
         </button>
       </header>
+
+      <!-- Modern Custom Volume Control -->
+      <div class="glass-volume" id="glassVolume">
+        <span class="glass-volume__label">Volume</span>
+        <div class="glass-volume__controls">
+          <button type="button" id="volDownBtn" class="glass-btn">Down</button>
+          <div class="glass-volume__indicator">
+            <div class="glass-volume__fill" id="volFill"></div>
+          </div>
+          <button type="button" id="volUpBtn" class="glass-btn">Up</button>
+        </div>
+      </div>
 
       <!-- No side country selectors on this stage -->
 
@@ -63,5 +75,9 @@
         </p>
       </div>
     </div>
+    <!-- Footer Credits -->
+    <footer class="glass-footer">
+      Credits: <a href="https://github.com/arpittak027" target="_blank" rel="noopener noreferrer">@arpittak027</a>
+    </footer>
   </body>
 </html>

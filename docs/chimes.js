@@ -20,6 +20,28 @@
 
 /** @type {Record<string, ChimeProfile>} */
 export const COUNTRY_CHIMES = {
+  // Warm mid bronze — rounder body, gentle shimmer
+  vietnam: {
+    freqs: [349.23, 392.0, 440.0, 523.25, 587.33, 659.25, 698.46, 784.0],
+    partials: [
+      { ratio: 1.0, gain: 0.58 },
+      { ratio: 2.0, gain: 0.22 },
+      { ratio: 2.4, gain: 0.16 },
+      { ratio: 3.6, gain: 0.1 },
+      { ratio: 5.0, gain: 0.05 }
+    ],
+    duration: 1.15,
+    attack: 0.01,
+    peak: 0.18,
+    droop: 0.991,
+    noiseDur: 0.035,
+    noiseGain: 0.08,
+    noiseQ: 4,
+    noiseMul: 2.1,
+    shelfHz: 1600,
+    shelfGain: 3,
+    minIntervalMs: 55
+  },
   // Lower bronze bells — longer sustain, darker partials
   china: {
     freqs: [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 587.33, 659.25],
@@ -63,28 +85,6 @@ export const COUNTRY_CHIMES = {
     shelfHz: 2800,
     shelfGain: 6,
     minIntervalMs: 42
-  },
-  // Warm mid bronze — rounder body, gentle shimmer
-  vietnam: {
-    freqs: [349.23, 392.0, 440.0, 523.25, 587.33, 659.25, 698.46, 784.0],
-    partials: [
-      { ratio: 1.0, gain: 0.58 },
-      { ratio: 2.0, gain: 0.22 },
-      { ratio: 2.4, gain: 0.16 },
-      { ratio: 3.6, gain: 0.1 },
-      { ratio: 5.0, gain: 0.05 }
-    ],
-    duration: 1.15,
-    attack: 0.01,
-    peak: 0.18,
-    droop: 0.991,
-    noiseDur: 0.035,
-    noiseGain: 0.08,
-    noiseQ: 4,
-    noiseMul: 2.1,
-    shelfHz: 1600,
-    shelfGain: 3,
-    minIntervalMs: 55
   },
   // Kazakhstan — open steppe metal / temir-komuz-ish twang
   kazakhstan: {
@@ -305,6 +305,28 @@ export const COUNTRY_CHIMES = {
     shelfHz: 1100,
     shelfGain: 1.2,
     minIntervalMs: 68
+  },
+  // Australia — bright sails / modern steel resonance
+  australia: {
+    freqs: [440.0, 493.88, 587.33, 659.25, 783.99, 880.0, 987.77, 1174.7],
+    partials: [
+      { ratio: 1.0, gain: 0.52 },
+      { ratio: 2.0, gain: 0.25 },
+      { ratio: 3.1, gain: 0.15 },
+      { ratio: 4.8, gain: 0.08 },
+      { ratio: 6.5, gain: 0.04 }
+    ],
+    duration: 1.1,
+    attack: 0.005,
+    peak: 0.18,
+    droop: 0.992,
+    noiseDur: 0.025,
+    noiseGain: 0.1,
+    noiseQ: 6,
+    noiseMul: 2.5,
+    shelfHz: 2400,
+    shelfGain: 4,
+    minIntervalMs: 45
   }
 };
 

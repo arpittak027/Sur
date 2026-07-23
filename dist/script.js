@@ -122,7 +122,7 @@ function applyCountryCopy(country) {
       eyebrow.textContent = gloss;
     }
   }
-  document.title = `Budarina — ${country.name}`;
+  document.title = `Sur — ${country.name}`;
   requestAnimationFrame(() => layoutAreaAboveCopy());
 }
 
@@ -396,16 +396,32 @@ fFeel.addBinding(CONFIG, "chimes", { label: "Door chimes" }).on(
     chimes.enabled = ev.value;
   }
 );
-fFeel
-  .addBinding(CONFIG, "chimeVolume", {
-    min: 0,
-    max: 1,
-    step: 0.01,
-    label: "Chime volume"
-  })
-  .on("change", (ev) => {
-    chimes.setVolume(ev.value);
-  });
+  const volUpBtn = document.getElementById("volUpBtn");
+  const volDownBtn = document.getElementById("volDownBtn");
+  const volFill = document.getElementById("volFill");
+
+  function updateVolumeUI() {
+    if (volFill) {
+      volFill.style.width = `${CONFIG.chimeVolume * 100}%`;
+    }
+  }
+
+  if (volUpBtn) {
+    volUpBtn.addEventListener("click", () => {
+      CONFIG.chimeVolume = Math.min(1, CONFIG.chimeVolume + 0.1);
+      chimes.setVolume(CONFIG.chimeVolume);
+      updateVolumeUI();
+    });
+  }
+
+  if (volDownBtn) {
+    volDownBtn.addEventListener("click", () => {
+      CONFIG.chimeVolume = Math.max(0, CONFIG.chimeVolume - 0.1);
+      chimes.setVolume(CONFIG.chimeVolume);
+      updateVolumeUI();
+    });
+  }
+  updateVolumeUI();
 fFeel.addBinding(CONFIG, "contain", { label: "Keep in bounds" });
 
 function rerender() {
@@ -436,6 +452,13 @@ function setPaneOpen(open) {
   pane.hidden = !open;
   const btn = document.getElementById("chatBtn");
   if (btn) btn.setAttribute("aria-expanded", open ? "true" : "false");
+  
+  const volPane = document.getElementById("glassVolume");
+  if (volPane) {
+    volPane.style.opacity = open ? "1" : "0";
+    volPane.style.pointerEvents = open ? "auto" : "none";
+    volPane.style.transform = open ? "translateY(0)" : "translateY(-10px)";
+  }
 }
 
 document.getElementById("chatBtn")?.addEventListener("click", () => {

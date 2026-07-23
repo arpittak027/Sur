@@ -69,7 +69,7 @@ body {
 /* ─── Top bar ─── */
 .topbar {
   position: absolute;
-  z-index: 20;
+  z-index: 10;
   /* Figma Items y:33 / Configure y:32 on 1600×900 */
   top: 32px;
   left: var(--pad-x);
@@ -151,14 +151,11 @@ body {
   text-decoration-thickness: 1px;
 }
 
+
 .dot {
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: var(--ink);
-  opacity: 0.5;
-  flex-shrink: 0;
+  display: none;
 }
+
 
 .chat-btn {
   position: relative;
@@ -166,19 +163,23 @@ body {
   border: none;
   cursor: pointer;
   width: 107px;
-  height: 36px;
+  height: 44px;
   padding: 0;
-  /* Wavy dark SVG from Figma 615:6816 — shape only; label is HTML (PP Eiko) */
-  background: transparent url("./configure-btn.svg") center / 100% 100% no-repeat;
-  color: #fff;
+  
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 22px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  color: #000;
   font-family: var(--display);
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.06em;
-  line-height: 0.98;
-  white-space: nowrap;
-  box-shadow: none;
-  border-radius: 0;
+  transition: background 0.2s, transform 0.1s;
 }
 
 .chat-btn__label {
@@ -187,23 +188,23 @@ body {
   display: block;
   width: 100%;
   text-align: center;
-  line-height: 36px;
+  line-height: 44px;
   pointer-events: none;
 }
 
 .chat-btn:hover {
-  filter: brightness(1.06);
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.03);
 }
 
 .chat-btn[aria-expanded="true"] {
-  filter: brightness(1.1);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* ─── Country side buttons — Figma 609:6644 / 608:6641 (y:279 on 1600×900) ─── */
 .country-btn {
   position: absolute;
   z-index: 15;
-  /* Figma 609:6644 / 608:6641 — y:279 on 1600×900 */
   top: calc(279 / 900 * 100%);
   width: 80px;
   height: 80px;
@@ -214,16 +215,15 @@ body {
   justify-content: center;
   gap: 0;
   appearance: none;
-  background-color: transparent;
-  /* Wavy ink frame (Figma 615:6824 / 615:6827), not a hard box */
-  background-image: url("./selector-frame.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 84px 84px;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  border-radius: 0;
+  
+  /* Glassmorphism */
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  
   cursor: pointer;
   color: var(--ink);
   overflow: visible;
@@ -231,6 +231,8 @@ body {
   transition:
     transform 220ms var(--ease-scene),
     opacity 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
     filter 180ms ease;
 }
 
@@ -264,8 +266,8 @@ body {
 .country-btn__icon {
   position: relative;
   display: block;
-  width: 67px;
-  height: 21px;
+  width: 48px;
+  height: 48px;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -282,87 +284,23 @@ body {
 }
 
 /* Japan — Figma 616:6102: 76×22 */
-.country-btn[data-country="japan"] .country-btn__icon {
-  width: 76px;
-  height: 22px;
-}
-
 /* Vietnam — Figma 617:6130: 67×21 */
-.country-btn[data-country="vietnam"] .country-btn__icon {
-  width: 67px;
-  height: 21px;
-}
-
 /* China — Figma 617:6112: 76×22 */
-.country-btn[data-country="china"] .country-btn__icon {
-  width: 76px;
-  height: 22px;
-}
-
 /* Kazakhstan — Figma 617:6117: 64×30 */
-.country-btn[data-country="kazakhstan"] .country-btn__icon {
-  width: 64px;
-  height: 30px;
-}
 .country-btn[data-country="kazakhstan"] .country-btn__label {
   font-size: 12px;
   letter-spacing: -0.06em;
 }
 
 /* Russia — Figma 617:6122: 70×33 */
-.country-btn[data-country="russia"] .country-btn__icon {
-  width: 70px;
-  height: 33px;
-}
-
 /* France — Figma 633:311: 56×30 */
-.country-btn[data-country="france"] .country-btn__icon {
-  width: 56px;
-  height: 30px;
-}
-
 /* India — Figma 633:277: 70×44 */
-.country-btn[data-country="india"] .country-btn__icon {
-  width: 70px;
-  height: 44px;
-}
-
 /* UK — Figma 633:299: 62×43 */
-.country-btn[data-country="uk"] .country-btn__icon {
-  width: 62px;
-  height: 43px;
-}
-
 /* Norway — Figma 633:321: 62×28 */
-.country-btn[data-country="norway"] .country-btn__icon {
-  width: 62px;
-  height: 28px;
-}
-
 /* Italy — Figma 633:331: 54×50 */
-.country-btn[data-country="italy"] .country-btn__icon {
-  width: 54px;
-  height: 50px;
-}
-
 /* USA — Figma 634:388: 64×36 */
-.country-btn[data-country="usa"] .country-btn__icon {
-  width: 64px;
-  height: 36px;
-}
-
 /* Brazil — Figma 634:401: 64×28 */
-.country-btn[data-country="brazil"] .country-btn__icon {
-  width: 64px;
-  height: 28px;
-}
-
 /* Iran — Figma 634:410: 64×26 */
-.country-btn[data-country="iran"] .country-btn__icon {
-  width: 64px;
-  height: 26px;
-}
-
 .country-btn__label {
   font-family: var(--display);
   font-weight: 500;
@@ -386,107 +324,16 @@ body {
 }
 
 /* Figma 605:6500 China — frame -149,-280 779×288; full PNG fill ≈ -180,-508 841² */
-.area[data-country="china"] {
-  --roof-x: -180px;
-  --roof-y: -508px;
-  --roof-w: 841px;
-  --roof-h: 841px;
-}
-
-.area[data-country="japan"] {
-  --roof-x: -71px;
-  --roof-y: -367px;
-  --roof-w: 634px;
-  --roof-h: 634px;
-}
-
-.area[data-country="vietnam"] {
-  --roof-x: -92px;
-  --roof-y: -399px;
-  --roof-w: 676px;
-  --roof-h: 676px;
-}
-
 /* Figma 612:6710 — Kazakhstan yurt (+20px) */
-.area[data-country="kazakhstan"] {
-  --roof-x: -14px;
-  --roof-y: -206px;
-  --roof-w: 519px;
-  --roof-h: 271px;
-}
-
 /* Figma 612:6754 — Russia terem */
-.area[data-country="russia"] {
-  --roof-x: -36px;
-  --roof-y: -247px;
-  --roof-w: 564px;
-  --roof-h: 284px;
-}
-
 /* Figma 633:304 — France mansard */
-.area[data-country="france"] {
-  --roof-x: -38px;
-  --roof-y: -267px;
-  --roof-w: 569px;
-  --roof-h: 271px;
-}
-
 /* Figma 633:254 — India dome */
-.area[data-country="india"] {
-  --roof-x: -95px;
-  --roof-y: -343px;
-  --roof-w: 681px;
-  --roof-h: 466px;
-}
-
 /* Figma 633:259 — UK thatch */
-.area[data-country="uk"] {
-  --roof-x: -81px;
-  --roof-y: -296px;
-  --roof-w: 625px;
-  --roof-h: 411px;
-}
-
 /* Figma 633:315 — Norway sod roof */
-.area[data-country="norway"] {
-  --roof-x: -82px;
-  --roof-y: -226px;
-  --roof-w: 655px;
-  --roof-h: 248px;
-}
-
 /* Figma 633:325 — Italy duomo */
-.area[data-country="italy"] {
-  --roof-x: -32px;
-  --roof-y: -418px;
-  --roof-w: 547px;
-  --roof-h: 500px;
-}
-
 /* Figma 634:382 — USA shingle gable */
-.area[data-country="usa"] {
-  --roof-x: -77px;
-  --roof-y: -276px;
-  --roof-w: 629px;
-  --roof-h: 285px;
-}
-
 /* Figma 634:392 — Brazil terracotta */
-.area[data-country="brazil"] {
-  --roof-x: -77px;
-  --roof-y: -236px;
-  --roof-w: 629px;
-  --roof-h: 259px;
-}
-
 /* Figma 634:395 — Iran windcatchers */
-.area[data-country="iran"] {
-  --roof-x: -77px;
-  --roof-y: -220px;
-  --roof-w: 629px;
-  --roof-h: 228px;
-}
-
 .scene {
   position: absolute;
   inset: 0;
@@ -626,20 +473,6 @@ body {
   user-select: none;
 }
 
-.area[data-country="kazakhstan"] .roof img,
-.area[data-country="russia"] .roof img,
-.area[data-country="france"] .roof img,
-.area[data-country="india"] .roof img,
-.area[data-country="uk"] .roof img,
-.area[data-country="norway"] .roof img,
-.area[data-country="italy"] .roof img,
-.area[data-country="usa"] .roof img,
-.area[data-country="brazil"] .roof img,
-.area[data-country="iran"] .roof img {
-  object-fit: contain;
-  object-position: center bottom;
-}
-
 /* ─── Bottom copy — Figma 605:6488 heading + 605:6466 aside ─── */
 .bottom-copy {
   position: absolute;
@@ -661,10 +494,11 @@ body {
   max-width: min(520px, 100%);
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 32px;
   flex-shrink: 1;
   min-width: 0;
+  text-shadow: 0px 0px 10px rgba(232, 223, 208, 0.8), 0px 0px 20px rgba(232, 223, 208, 0.8);
 }
 
 .eyebrow {
@@ -853,7 +687,8 @@ body {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center top;
   object-position: center 20%;
 }
 
@@ -1365,97 +1200,6 @@ body {
 }
 
 /* Reuse home roof/shadow vars via data-country on the item */
-.carousel__item[data-country="china"] {
-  --roof-x: -180px;
-  --roof-y: -508px;
-  --roof-w: 841px;
-  --roof-h: 841px;
-}
-
-.carousel__item[data-country="japan"] {
-  --roof-x: -71px;
-  --roof-y: -367px;
-  --roof-w: 634px;
-  --roof-h: 634px;
-}
-
-.carousel__item[data-country="vietnam"] {
-  --roof-x: -92px;
-  --roof-y: -399px;
-  --roof-w: 676px;
-  --roof-h: 676px;
-}
-
-.carousel__item[data-country="kazakhstan"] {
-  --roof-x: -14px;
-  --roof-y: -206px;
-  --roof-w: 519px;
-  --roof-h: 271px;
-}
-
-.carousel__item[data-country="russia"] {
-  --roof-x: -36px;
-  --roof-y: -247px;
-  --roof-w: 564px;
-  --roof-h: 284px;
-}
-
-.carousel__item[data-country="france"] {
-  --roof-x: -38px;
-  --roof-y: -267px;
-  --roof-w: 569px;
-  --roof-h: 271px;
-}
-
-.carousel__item[data-country="india"] {
-  --roof-x: -95px;
-  --roof-y: -343px;
-  --roof-w: 681px;
-  --roof-h: 466px;
-}
-
-.carousel__item[data-country="uk"] {
-  --roof-x: -81px;
-  --roof-y: -296px;
-  --roof-w: 625px;
-  --roof-h: 411px;
-}
-
-.carousel__item[data-country="norway"] {
-  --roof-x: -82px;
-  --roof-y: -226px;
-  --roof-w: 655px;
-  --roof-h: 248px;
-}
-
-.carousel__item[data-country="italy"] {
-  --roof-x: -32px;
-  --roof-y: -418px;
-  --roof-w: 547px;
-  --roof-h: 500px;
-}
-
-.carousel__item[data-country="usa"] {
-  --roof-x: -77px;
-  --roof-y: -276px;
-  --roof-w: 629px;
-  --roof-h: 285px;
-}
-
-.carousel__item[data-country="brazil"] {
-  --roof-x: -77px;
-  --roof-y: -236px;
-  --roof-w: 629px;
-  --roof-h: 259px;
-}
-
-.carousel__item[data-country="iran"] {
-  --roof-x: -77px;
-  --roof-y: -220px;
-  --roof-w: 629px;
-  --roof-h: 228px;
-}
-
 .carousel__item .shadow {
   position: absolute;
   left: 0;
@@ -1497,52 +1241,45 @@ body {
   -webkit-user-drag: none;
 }
 
-.carousel__item[data-country="kazakhstan"] .roof img,
-.carousel__item[data-country="russia"] .roof img,
-.carousel__item[data-country="france"] .roof img,
-.carousel__item[data-country="india"] .roof img,
-.carousel__item[data-country="uk"] .roof img,
-.carousel__item[data-country="norway"] .roof img,
-.carousel__item[data-country="italy"] .roof img,
-.carousel__item[data-country="usa"] .roof img,
-.carousel__item[data-country="brazil"] .roof img,
-.carousel__item[data-country="iran"] .roof img {
-  object-fit: contain;
-  object-position: center bottom;
-}
-
 /* Configure panel — Budarina parchment / ink (not default Tweakpane chrome) */
 .tp-dfwv,
 .budarina-pane {
   z-index: 10000 !important;
   pointer-events: auto !important;
-  top: 72px !important;
+  top: 88px !important;
   right: max(16px, var(--pad-x)) !important;
   width: min(300px, calc(100vw - 32px)) !important;
   font-family: var(--mono) !important;
   letter-spacing: -0.04em;
+  
+  /* Glassmorphism */
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
 
-  --tp-base-background-color: rgba(244, 234, 216, 0.96);
-  --tp-base-shadow-color: rgba(58, 45, 42, 0.2);
-  --tp-button-background-color: #58423c;
-  --tp-button-background-color-hover: #3a2d2a;
-  --tp-button-background-color-active: #2c221f;
-  --tp-button-background-color-focus: #3a2d2a;
-  --tp-button-foreground-color: #f6ecda;
-  --tp-container-background-color: rgba(88, 66, 60, 0.07);
-  --tp-container-background-color-hover: rgba(88, 66, 60, 0.11);
-  --tp-container-background-color-focus: rgba(88, 66, 60, 0.13);
-  --tp-container-background-color-active: rgba(88, 66, 60, 0.15);
-  --tp-container-foreground-color: #3a2d2a;
-  --tp-groove-foreground-color: rgba(88, 66, 60, 0.16);
-  --tp-input-background-color: rgba(255, 249, 238, 0.92);
-  --tp-input-background-color-hover: #fffaf0;
-  --tp-input-background-color-focus: #fffdf7;
-  --tp-input-background-color-active: #fffdf7;
-  --tp-input-foreground-color: #3a2d2a;
-  --tp-label-foreground-color: rgba(88, 66, 60, 0.78);
-  --tp-monitor-background-color: rgba(88, 66, 60, 0.06);
-  --tp-monitor-foreground-color: #58423c;
+  --tp-base-background-color: rgba(255, 255, 255, 0.2);
+  --tp-base-shadow-color: rgba(0, 0, 0, 0.1);
+  --tp-button-background-color: rgba(255, 255, 255, 0.4);
+  --tp-button-background-color-hover: rgba(255, 255, 255, 0.6);
+  --tp-button-background-color-active: rgba(255, 255, 255, 0.8);
+  --tp-button-background-color-focus: rgba(255, 255, 255, 0.5);
+  --tp-button-foreground-color: #111;
+  --tp-container-background-color: rgba(255, 255, 255, 0.1);
+  --tp-container-background-color-hover: rgba(255, 255, 255, 0.2);
+  --tp-container-background-color-focus: rgba(255, 255, 255, 0.3);
+  --tp-container-background-color-active: rgba(255, 255, 255, 0.4);
+  --tp-container-foreground-color: #222;
+  --tp-groove-foreground-color: rgba(0, 0, 0, 0.1);
+  --tp-input-background-color: rgba(255, 255, 255, 0.3);
+  --tp-input-background-color-hover: rgba(255, 255, 255, 0.4);
+  --tp-input-background-color-focus: rgba(255, 255, 255, 0.5);
+  --tp-input-background-color-active: rgba(255, 255, 255, 0.6);
+  --tp-input-foreground-color: #111;
+  --tp-label-foreground-color: #333;
+  --tp-monitor-background-color: rgba(255, 255, 255, 0.1);
+  --tp-monitor-foreground-color: #111;
 }
 
 .tp-dfwv .tp-rotv_t,
@@ -1578,7 +1315,7 @@ body {
 @media (max-width: 960px) {
   .tp-dfwv,
   .budarina-pane {
-    top: 56px !important;
+    top: 64px !important;
     width: min(280px, calc(100vw - 24px)) !important;
   }
 }
@@ -1696,58 +1433,57 @@ body {
     height: 18px;
   }
 
-  .country-btn[data-country="japan"] .country-btn__icon,
-  .country-btn[data-country="china"] .country-btn__icon {
+  {
     width: 64px;
     height: 18px;
   }
 
-  .country-btn[data-country="kazakhstan"] .country-btn__icon {
+  {
     width: 54px;
     height: 26px;
   }
 
-  .country-btn[data-country="russia"] .country-btn__icon {
+  {
     width: 58px;
     height: 28px;
   }
 
-  .country-btn[data-country="france"] .country-btn__icon {
+  {
     width: 48px;
     height: 26px;
   }
 
-  .country-btn[data-country="india"] .country-btn__icon {
+  {
     width: 58px;
     height: 36px;
   }
 
-  .country-btn[data-country="uk"] .country-btn__icon {
+  {
     width: 52px;
     height: 36px;
   }
 
-  .country-btn[data-country="norway"] .country-btn__icon {
+  {
     width: 52px;
     height: 24px;
   }
 
-  .country-btn[data-country="italy"] .country-btn__icon {
+  {
     width: 46px;
     height: 42px;
   }
 
-  .country-btn[data-country="usa"] .country-btn__icon {
+  {
     width: 54px;
     height: 30px;
   }
 
-  .country-btn[data-country="brazil"] .country-btn__icon {
+  {
     width: 54px;
     height: 24px;
   }
 
-  .country-btn[data-country="iran"] .country-btn__icon {
+  {
     width: 54px;
     height: 22px;
   }
@@ -1886,7 +1622,7 @@ body {
     align-items: flex-start;
     justify-content: flex-end;
     gap: 14px;
-    z-index: 20;
+    z-index: 10;
   }
 
   .heading {
@@ -2082,4 +1818,700 @@ body {
 .menu a[aria-disabled="true"] {
   pointer-events: none;
   opacity: 0.45;
+}
+
+
+.glass-volume {
+  position: fixed;
+  top: 88px;
+  right: calc(max(16px, var(--pad-x)) + min(300px, calc(100vw - 32px)) + 16px);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-family: var(--display), sans-serif;
+  color: #333;
+}
+
+
+.glass-volume__label {
+  display: none;
+}
+
+
+.glass-volume__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+.glass-btn {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.glass-btn:active {
+  transform: scale(0.95);
+}
+
+.glass-volume__indicator {
+  width: 80px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.glass-volume__fill {
+  height: 100%;
+  width: 28%; /* Default volume 0.28 */
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 4px rgba(255,255,255,0.5);
+
+  transition: width 0.2s ease;
+}
+
+@media (max-width: 960px) {
+  .glass-volume {
+    top: auto;
+    bottom: 16px;
+    right: max(16px, var(--pad-x));
+    transform: translateY(0);
+  }
+}
+
+/* Glass Footer */
+.glass-footer {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.glass-footer a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 0, 0, 0.3);
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+.glass-footer a:hover {
+  opacity: 0.7;
+}
+
+
+/* RESTORED ROOF BLOCKS */
+.area[data-country="china"] {
+  --roof-x: -180px;
+  --roof-y: -508px;
+  --roof-w: 841px;
+  --roof-h: 841px;
+}
+
+.area[data-country="japan"] {
+  --roof-x: -71px;
+  --roof-y: -367px;
+  --roof-w: 634px;
+  --roof-h: 634px;
+}
+
+.area[data-country="vietnam"] {
+  --roof-x: -92px;
+  --roof-y: -399px;
+  --roof-w: 676px;
+  --roof-h: 676px;
+}
+
+.area[data-country="kazakhstan"] {
+  --roof-x: -14px;
+  --roof-y: -206px;
+  --roof-w: 519px;
+  --roof-h: 271px;
+}
+
+.area[data-country="russia"] {
+  --roof-x: -36px;
+  --roof-y: -247px;
+  --roof-w: 564px;
+  --roof-h: 284px;
+}
+
+.area[data-country="france"] {
+  --roof-x: -38px;
+  --roof-y: -267px;
+  --roof-w: 569px;
+  --roof-h: 271px;
+}
+
+.area[data-country="india"] {
+  --roof-x: -95px;
+  --roof-y: -343px;
+  --roof-w: 681px;
+  --roof-h: 466px;
+}
+
+.area[data-country="uk"] {
+  --roof-x: -81px;
+  --roof-y: -296px;
+  --roof-w: 625px;
+  --roof-h: 411px;
+}
+
+.area[data-country="norway"] {
+  --roof-x: -82px;
+  --roof-y: -226px;
+  --roof-w: 655px;
+  --roof-h: 248px;
+}
+
+.area[data-country="italy"] {
+  --roof-x: -32px;
+  --roof-y: -418px;
+  --roof-w: 547px;
+  --roof-h: 500px;
+}
+
+.area[data-country="usa"] {
+  --roof-x: -77px;
+  --roof-y: -276px;
+  --roof-w: 629px;
+  --roof-h: 285px;
+}
+
+.area[data-country="brazil"] {
+  --roof-x: -77px;
+  --roof-y: -236px;
+  --roof-w: 629px;
+  --roof-h: 259px;
+}
+
+.area[data-country="iran"] {
+  --roof-x: -77px;
+  --roof-y: -220px;
+  --roof-w: 629px;
+  --roof-h: 228px;
+}
+
+
+
+.carousel__item[data-country="china"] {
+  --roof-x: -180px;
+  --roof-y: -508px;
+  --roof-w: 841px;
+  --roof-h: 841px;
+}
+
+.carousel__item[data-country="japan"] {
+  --roof-x: -71px;
+  --roof-y: -367px;
+  --roof-w: 634px;
+  --roof-h: 634px;
+}
+
+.carousel__item[data-country="vietnam"] {
+  --roof-x: -92px;
+  --roof-y: -399px;
+  --roof-w: 676px;
+  --roof-h: 676px;
+}
+
+.carousel__item[data-country="kazakhstan"] {
+  --roof-x: -14px;
+  --roof-y: -206px;
+  --roof-w: 519px;
+  --roof-h: 271px;
+}
+
+.carousel__item[data-country="russia"] {
+  --roof-x: -36px;
+  --roof-y: -247px;
+  --roof-w: 564px;
+  --roof-h: 284px;
+}
+
+.carousel__item[data-country="france"] {
+  --roof-x: -38px;
+  --roof-y: -267px;
+  --roof-w: 569px;
+  --roof-h: 271px;
+}
+
+.carousel__item[data-country="india"] {
+  --roof-x: -95px;
+  --roof-y: -343px;
+  --roof-w: 681px;
+  --roof-h: 466px;
+}
+
+.carousel__item[data-country="uk"] {
+  --roof-x: -81px;
+  --roof-y: -296px;
+  --roof-w: 625px;
+  --roof-h: 411px;
+}
+
+.carousel__item[data-country="norway"] {
+  --roof-x: -82px;
+  --roof-y: -226px;
+  --roof-w: 655px;
+  --roof-h: 248px;
+}
+
+.carousel__item[data-country="italy"] {
+  --roof-x: -32px;
+  --roof-y: -418px;
+  --roof-w: 547px;
+  --roof-h: 500px;
+}
+
+.carousel__item[data-country="usa"] {
+  --roof-x: -77px;
+  --roof-y: -276px;
+  --roof-w: 629px;
+  --roof-h: 285px;
+}
+
+.carousel__item[data-country="brazil"] {
+  --roof-x: -77px;
+  --roof-y: -236px;
+  --roof-w: 629px;
+  --roof-h: 259px;
+}
+
+.carousel__item[data-country="iran"] {
+  --roof-x: -77px;
+  --roof-y: -220px;
+  --roof-w: 629px;
+  --roof-h: 228px;
+}
+
+.area[data-country="kazakhstan"] {
+  --roof-x: -14px;
+  --roof-y: -206px;
+  --roof-w: 519px;
+  --roof-h: 271px;
+}
+
+/* Figma 612:6754 — Russia terem */
+.area[data-country="russia"] {
+  --roof-x: -36px;
+  --roof-y: -247px;
+  --roof-w: 564px;
+  --roof-h: 284px;
+}
+
+/* Figma 633:304 — France mansard */
+.area[data-country="france"] {
+  --roof-x: -38px;
+  --roof-y: -267px;
+  --roof-w: 569px;
+  --roof-h: 271px;
+}
+
+/* Figma 633:254 — India dome */
+.area[data-country="india"] {
+  --roof-x: -95px;
+  --roof-y: -343px;
+  --roof-w: 681px;
+  --roof-h: 466px;
+}
+
+/* Figma 633:259 — UK thatch */
+.area[data-country="uk"] {
+  --roof-x: -81px;
+  --roof-y: -296px;
+  --roof-w: 625px;
+  --roof-h: 411px;
+}
+
+/* Figma 633:315 — Norway sod roof */
+.area[data-country="norway"] {
+  --roof-x: -82px;
+  --roof-y: -226px;
+  --roof-w: 655px;
+  --roof-h: 248px;
+}
+
+/* Figma 633:325 — Italy duomo */
+.area[data-country="italy"] {
+  --roof-x: -32px;
+  --roof-y: -418px;
+  --roof-w: 547px;
+  --roof-h: 500px;
+}
+
+/* Figma 634:382 — USA shingle gable */
+.area[data-country="usa"] {
+  --roof-x: -77px;
+  --roof-y: -276px;
+  --roof-w: 629px;
+  --roof-h: 285px;
+}
+
+/* Figma 634:392 — Brazil terracotta */
+.area[data-country="brazil"] {
+  --roof-x: -77px;
+  --roof-y: -236px;
+  --roof-w: 629px;
+  --roof-h: 259px;
+}
+
+/* Figma 634:395 — Iran windcatchers */
+.area[data-country="iran"] {
+  --roof-x: -77px;
+  --roof-y: -220px;
+  --roof-w: 629px;
+  --roof-h: 228px;
+}
+
+
+
+.scene {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+.scene.is-animating {
+  pointer-events: none;
+}
+
+.shadow {
+  /* Figma progressive cast under roof — stacked blur layers approximate soft falloff */
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--shadow-w);
+  height: var(--shadow-h);
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+  opacity: 0.92;
+}
+
+/* Progressive blur: sharp under the roof → softer toward the far end.
+   Native CSS can't do Figma progressive blur in one filter, so we stack
+   increasingly blurred copies masked along the cast direction. */
+.shadow__layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+
+.shadow__layer--sharp {
+  filter: blur(0);
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    #000 0%,
+    #000 10%,
+    transparent 32%
+  );
+  mask-image: linear-gradient(160deg, #000 0%, #000 10%, transparent 32%);
+}
+
+.shadow__layer--soft {
+  filter: blur(8px);
+  opacity: 0.95;
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    transparent 0%,
+    #000 14%,
+    #000 48%,
+    transparent 72%
+  );
+  mask-image: linear-gradient(
+    160deg,
+    transparent 0%,
+    #000 14%,
+    #000 48%,
+    transparent 72%
+  );
+}
+
+.shadow__layer--softer {
+  filter: blur(18px);
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    transparent 12%,
+    #000 36%,
+    #000 70%,
+    transparent 95%
+  );
+  mask-image: linear-gradient(
+    160deg,
+    transparent 12%,
+    #000 36%,
+    #000 70%,
+    transparent 95%
+  );
+}
+
+.shadow__layer--softest {
+  filter: blur(32px);
+  opacity: 0.75;
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    transparent 30%,
+    #000 58%,
+    #000 100%
+  );
+  mask-image: linear-gradient(160deg, transparent 30%, #000 58%, #000 100%);
+}
+
+.strings {
+  --pad: 420px;
+  position: absolute;
+  left: calc(var(--pad) * -1);
+  top: calc(var(--pad) * -1);
+  width: calc(100% + var(--pad) * 2);
+  height: calc(100% + var(--pad) * 2);
+  z-index: 2;
+  overflow: visible;
+  touch-action: none;
+  pointer-events: none;
+}
+
+.strings canvas {
+  display: block;
+  /* Must fill .strings — inline style from sizeCanvas would otherwise keep
+     desktop px and misalign cloth under a scaled mobile area. */
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: auto;
+}
+
+.roof {
+  position: absolute;
+  left: var(--roof-x);
+  top: var(--roof-y);
+  width: var(--roof-w);
+  height: var(--roof-h);
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.roof img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.area[data-country="kazakhstan"] .roof img,
+.area[data-country="russia"] .roof img,
+.area[data-country="france"] .roof img,
+.area[data-country="india"] .roof img,
+.area[data-country="uk"] .roof img,
+.area[data-country="norway"] .roof img,
+.area[data-country="italy"] .roof img,
+.area[data-country="usa"] .roof img,
+.area[data-country="brazil"] .roof img,
+.area[data-country="iran"] .roof img,
+.area[data-country="turkey"] .roof img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.carousel__item[data-country="kazakhstan"] {
+  --roof-x: -14px;
+  --roof-y: -206px;
+  --roof-w: 519px;
+  --roof-h: 271px;
+}
+
+.carousel__item[data-country="russia"] {
+  --roof-x: -36px;
+  --roof-y: -247px;
+  --roof-w: 564px;
+  --roof-h: 284px;
+}
+
+.carousel__item[data-country="france"] {
+  --roof-x: -38px;
+  --roof-y: -267px;
+  --roof-w: 569px;
+  --roof-h: 271px;
+}
+
+.carousel__item[data-country="india"] {
+  --roof-x: -95px;
+  --roof-y: -343px;
+  --roof-w: 681px;
+  --roof-h: 466px;
+}
+
+.carousel__item[data-country="uk"] {
+  --roof-x: -81px;
+  --roof-y: -296px;
+  --roof-w: 625px;
+  --roof-h: 411px;
+}
+
+.carousel__item[data-country="norway"] {
+  --roof-x: -82px;
+  --roof-y: -226px;
+  --roof-w: 655px;
+  --roof-h: 248px;
+}
+
+.carousel__item[data-country="italy"] {
+  --roof-x: -32px;
+  --roof-y: -418px;
+  --roof-w: 547px;
+  --roof-h: 500px;
+}
+
+.carousel__item[data-country="usa"] {
+  --roof-x: -77px;
+  --roof-y: -276px;
+  --roof-w: 629px;
+  --roof-h: 285px;
+}
+
+.carousel__item[data-country="brazil"] {
+  --roof-x: -77px;
+  --roof-y: -236px;
+  --roof-w: 629px;
+  --roof-h: 259px;
+}
+
+.carousel__item[data-country="iran"] {
+  --roof-x: -77px;
+  --roof-y: -220px;
+  --roof-w: 629px;
+  --roof-h: 228px;
+}
+
+.carousel__item .shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--shadow-w);
+  height: var(--shadow-h);
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.carousel__item .strings {
+  z-index: 2;
+  pointer-events: none;
+}
+
+.carousel__item .strings canvas {
+  pointer-events: none;
+}
+
+.carousel__item .roof {
+  position: absolute;
+  left: var(--roof-x);
+  top: var(--roof-y);
+  width: var(--roof-w);
+  height: var(--roof-h);
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.carousel__item .roof img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.carousel__item[data-country="kazakhstan"] .roof img,
+.carousel__item[data-country="russia"] .roof img,
+.carousel__item[data-country="france"] .roof img,
+.carousel__item[data-country="india"] .roof img,
+.carousel__item[data-country="uk"] .roof img,
+.carousel__item[data-country="norway"] .roof img,
+.carousel__item[data-country="italy"] .roof img,
+.carousel__item[data-country="usa"] .roof img,
+.carousel__item[data-country="brazil"] .roof img,
+.carousel__item[data-country="iran"] .roof img,
+.carousel__item[data-country="turkey"] .roof img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+
+
+
+/* MISSING GENERATED ROOFS SIZES */
+
+.area[data-country="spain"] {
+  --roof-x: calc(-100 / 492 * var(--area-w));
+  --roof-y: calc(-300 / 492 * var(--area-w));
+  --roof-w: calc(700 / 492 * var(--area-w));
+  --roof-h: calc(500 / 492 * var(--area-w));
+}
+
+@media (min-width: 900px) {
+  
+.carousel__item[data-country="spain"] {
+  --roof-x: -100px;
+  --roof-y: -300px;
+  --roof-w: 700px;
+  --roof-h: 500px;
+}
+
+.area[data-country="spain"] .roof img,
+.carousel__item[data-country="spain"] .roof img, {
+  object-fit: contain;
+  object-position: center bottom;
 }
