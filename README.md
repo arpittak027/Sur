@@ -19,15 +19,6 @@ I have made several modern enhancements and structural additions to the original
 - Tweakpane (for the physics & settings controls)
 - Matter.js (for 2D physics simulation)
 
-## 🏃 How to Run Locally
-
-You can run this project easily using any local development server. For example, if you have Python installed:
-
-```bash
-python -m http.server 8765
-```
-Then navigate to `http://127.0.0.1:8765/` in your browser.
-
 ## 🙌 Credits & Acknowledgements
 
 **Author:** [arpittak027](https://github.com/arpittak027)
